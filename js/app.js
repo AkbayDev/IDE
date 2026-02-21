@@ -164,3 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+//------------------------hamburger menu voor mobiele users-------------------------------------
+
+document.addEventListener("DOMContentLoaded", function() {
+  var btn = document.getElementById("hamburger");
+  var nav = document.querySelector("nav");
+  if (btn && nav) {
+    btn.addEventListener("click", function() {
+      btn.classList.toggle("open");
+      nav.classList.toggle("open");
+    });
+    var links = nav.querySelectorAll("a");
+    links.forEach(function(a) {
+      a.addEventListener("click", function() {
+        btn.classList.remove("open");
+        nav.classList.remove("open");
+      });
+    });
+  }
+});
