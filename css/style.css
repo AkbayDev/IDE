@@ -681,18 +681,7 @@ ul li {
   height: auto;
   aspect-ratio: auto;
 }
-/* Start state for elements we want to animate */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
 
-/* End state when JavaScript triggers the animation */
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* --- Before & After Slider --- */
 .ba-slider-container {
