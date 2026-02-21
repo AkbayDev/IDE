@@ -1,0 +1,890 @@
+/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  /* 1 */
+}
+
+/*
+ * Extends the .visually-hidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * The use of `table` rather than `block` is only necessary if using
+ * `::before` to contain the top-margins of child elements.
+ */
+
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   https://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    /* Black prints faster */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links that are fragment identifiers,
+   * or use the `javascript:` pseudo protocol
+   */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+/* --- Base Styles & Resets --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- Header & Navigation --- */
+header {
+  border-bottom: 1px solid #eaeaea;
+  padding: 20px 0;
+  background-color: #ffffff;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Custom CSS Logo */
+.logo {
+  text-decoration: none;
+  color: #000000;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.logo-main {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo-sub {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Positioning the dots over 'D' and 'E' */
+.logo-dots {
+  position: absolute;
+  top: -5px;
+  left: 20px; /* Positioned right above the D and E */
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.dot.yellow { background-color: #FFD700; }
+.dot.orange { background-color: #FFA500; }
+.dot.red { background-color: #FF0000; }
+
+
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 5px; /* Slight rounding for a modern feel */
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+/* Align the text links and the button nicely in the center */
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: orange; /* Soften the hover on normal links so the button stands out more */
+}
+
+/* --- Clean Contact Button Styling --- */
+#contactbutton {
+  background-color: #000000;
+  color: #ffffff !important; /* Forces the text to stay white, overriding nav link colors */
+  padding: 12px 30px;
+  border-radius: 5px; /* Slight rounding for a modern feel */
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle drop shadow */
+  transition: all 0.3s ease; /* Smooth transition for the hover effects */
+}
+
+/* Hover effect: lifts up slightly, shadow deepens, turns slightly dark grey */
+#contactbutton:hover {
+  background-color: #222222;
+  color: #ffffff;
+  transform: translateY(-2px); /* Lifts the button up 2 pixels */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow to create depth */
+}
+
+/* Click effect: pushes back down */
+#contactbutton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn-full {
+  width: 100%;
+  font-size: x-large;
+}
+
+/* --- Hero Section --- */
+.hero {
+  padding: 100px 0;
+}
+
+/* --- Toonzaal Background Image --- */
+#toonzaal {
+  /* The linear-gradient adds a dark, 60% transparent overlay over the image */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/toonzaal.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* This creates a very sleek 'parallax' scrolling effect! */
+  color: #ffffff; /* Makes the heading text white */
+}
+
+/* Ensure the paragraph text inside the toonzaal section is also white/light gray */
+#toonzaal p {
+  color: #f0f0f0;
+}
+
+/* --- Openingsuren Split-Screen Parallax --- */
+#openingsuren {
+  position: relative;
+  overflow: hidden; /* Zorgt dat de foto's niet buiten de sectie vallen */
+}
+
+/* --- Openingsuren Split-Screen (Vloeiende versie) --- */
+#openingsuren {
+  position: relative;
+  overflow: hidden;
+}
+
+#openingsuren h1,
+#openingsuren .hours-list,
+#openingsuren li {
+  font-size: x-large;
+  color: #ffffff;
+  position: relative;
+  z-index: 2; /* Zorgt dat tekst altijd perfect boven de foto's staat */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Zorgt dat de tekst nóg beter leesbaar is */
+}
+
+/* Linker Foto */
+#openingsuren::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  /* Vervang foto1.jpg met jouw foto */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/IMG_6626.jpg");
+  background-size: cover;
+  background-position: center;
+  /* background-attachment: fixed; <-- Verwijderd voor perfecte performance! */
+}
+
+/* Rechter Foto */
+#openingsuren::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  /* Vervang foto2.jpg met jouw foto */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/werk-vc-2-1.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Responsief voor Smartphones (Boven elkaar in plaats van naast elkaar) */
+@media (max-width: 768px) {
+  #openingsuren::before {
+    width: 100%;
+    height: 50%;
+  }
+  #openingsuren::after {
+    width: 100%;
+    height: 50%;
+    top: 50%;
+    border-left: none;
+    border-top: 2px solid #ffffff;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: x-large;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+/* --- Portfolio Gallery --- */
+.portfolio {
+  padding: 80px 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+.portfolio h2 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 50px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  text-align: center;
+  font-weight: bold;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+/* --- Contact Section --- */
+.contact-section {
+  padding: 80px 0;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.contact-info h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+/* --- Professional Footer --- */
+.site-footer {
+  background-color: #fafafa;
+  border-top: 1px solid #eaeaea;
+  padding: 60px 0 0 0; /* Extra ruimte bovenaan, 0 onderaan want de bottom-bar regelt dat */
+  color: #333;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-col h3 {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-col p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.footer-contact, .footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact li {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+/* Subtiel effect: link schuift een beetje naar rechts als je erover zweeft */
+.footer-links a:hover {
+  color: orange;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+  color: #777;
+  background-color: #f0f0f0; /* Maakt de onderste balk nèt een tintje donkerder */
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+#ide-logo {
+  aspect-ratio: 1;
+  width: 50%;
+  height: auto;
+}
+/* Start state for elements we want to animate */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* End state when JavaScript triggers the animation */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Before & After Slider --- */
+.ba-slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  aspect-ratio: 16 / 9;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer; /* Laat zien dat de hele foto klikbaar is */
+}
+
+.ba-slider-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* De 'Na' foto (bovenste laag). Begint volledig onzichtbaar */
+.image-after {
+  /* Inset snijdt de foto bij: top, rechts, onder, links.
+     100% rechts betekent dat hij volledig onzichtbaar begint. */
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Het onzichtbare sleep-gebied */
+.slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0%; /* Begint helemaal aan de linkerkant */
+  width: 40px;
+  margin-left: -20px; /* Zorgt dat de 40px perfect gecentreerd is op de muis */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+/* De zwarte verticale scheidingslijn */
+.slider-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  background-color: #000000;
+  transform: translateX(-50%);
+}
+
+/* De ronde knop op de lijn */
+.slider-icon {
+  position: relative;
+  background-color: #000000;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.slider-handle:hover .slider-icon {
+  transform: scale(1.1);
+}
+
+/* --- Vacatures / Job Postings --- */
+.job-posting {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #fafafa;
+  border-left: 4px solid #000000;
+  border-radius: 0 4px 4px 0;
+}
+
+.job-posting h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.job-posting p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.job-requirements {
+  list-style-type: disc;
+  margin-left: 20px;
+  color: #444;
+  font-weight: 500;
+}
+
+.job-requirements li {
+  margin-bottom: 5px;
+}
+
+/* --- Custom Pop-up (Modal) --- */
+.modal {
+  display: none; /* Standaard verborgen */
+  position: fixed;
+  z-index: 10000; /* Ligt over alles heen */
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Donkere achtergrond */
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex; /* Zichtbaar wanneer Javascript de class toevoegt */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+  font-size: 28px;
+  color: #000000;
+}
+
+.modal-content p {
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 16px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.modal-close:hover {
+  color: #000000;
+}
+
+
+
+#uren {
+  font-size: x-large;
+}
+
+#urenpadding {
+  padding-bottom: 400px;
+}
