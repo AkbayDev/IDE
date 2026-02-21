@@ -61,7 +61,7 @@
 
     <div class="contact-form-wrapper">
       <h2>Solliciteer Direct</h2>
-      <form id="jobForm" action="sollicitatie.php" method="POST" enctype="multipart/form-data">
+      <form class="js-ajax-form" id="jobForm" action="sollicitatie.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="naam">Volledige Naam *</label>
           <input type="text" id="naam" name="naam" required placeholder="Jouw naam">
@@ -92,22 +92,14 @@
 
         <div class="form-group">
           <label for="cv">Upload je CV (Optioneel, PDF)</label>
-          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" style="border: none; padding-left: 0;">
+          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
         </div>
 
         <button type="submit" class="btn btn-full">Verstuur Sollicitatie</button>
       </form>
     </div>
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h2>Bedankt!</h2>
-        <p id="modal-message">Je sollicitatie is succesvol verzonden.</p>
-        <button class="btn" id="modal-ok-btn">OK</button>
-      </div>
-    </div>
-  </div>
-</section>
+
+    </section>
 
 <footer class="site-footer">
   <div class="container footer-grid">

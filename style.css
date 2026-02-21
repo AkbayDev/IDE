@@ -675,35 +675,13 @@ ul li {
   background-color: #f0f0f0; /* Maakt de onderste balk nèt een tintje donkerder */
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
 
 #ide-logo {
-  aspect-ratio: 1;
-  width: 50%;
+  width: 130px;
   height: auto;
-}
-/* Start state for elements we want to animate */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  aspect-ratio: auto;
 }
 
-/* End state when JavaScript triggers the animation */
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* --- Before & After Slider --- */
 .ba-slider-container {
