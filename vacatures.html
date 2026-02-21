@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDE vloer- en tegelwerken | Vacatures</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <!--
+      <div class="logo-dots">
+        <span class="dot yellow"></span>
+        <span class="dot orange"></span>
+        <span class="dot red"></span>
+      </div>
+      <span class="logo-main">IDE</span> <span class="logo-sub">vloer- en tegelwerken</span>
+      -->
+      <img id="ide-logo" src="img/logo-Pixels-White-medium-IDE.jpg" alt="Logo van IDE vloer- en tegelwerken">
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="realisaties.html" >Realisaties</a></li>
+        <li><a href="index.html#uren">Openingsuren</a></li>
+        <li><a href="vacatures.html" >Vacatures</a></li>
+        <li><a href="contact.html" class="btn" id="contactbutton">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="contact-section fade-in">
+  <div class="container contact-container">
+
+    <div class="contact-info">
+      <h2>Openstaande Vacatures</h2>
+
+      <div class="job-posting">
+        <h3>Ervaren Vloerder / Tegelzetter</h3>
+        <p>Wij zoeken een gemotiveerde stielman met oog voor detail. Je plaatst zowel keramische tegels als natuursteen en XXL-formaten bij particulieren en op werven.</p>
+        <ul class="job-requirements">
+          <li>Ervaring in de sector is een must</li>
+          <li>Rijbewijs B</li>
+          <li>Zelfstandig en nauwkeurig kunnen werken</li>
+          <li>Klantvriendelijke uitstraling</li>
+        </ul>
+      </div>
+
+      <div class="job-posting">
+        <h3>Spontane Sollicitatie</h3>
+        <p>Ben je een krak in je vak of een leergierige diender, maar staat jouw droomjob er niet specifiek tussen? Overtuig ons van je kunnen en laat van je horen!</p>
+      </div>
+    </div>
+
+    <div class="contact-form-wrapper">
+      <h2>Solliciteer Direct</h2>
+      <form id="jobForm" action="sollicitatie.php" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="naam">Volledige Naam *</label>
+          <input type="text" id="naam" name="naam" required placeholder="Jouw naam">
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mailadres *</label>
+          <input type="email" id="email" name="email" required placeholder="jouw.email@voorbeeld.be">
+        </div>
+
+        <div class="form-group">
+          <label for="telefoon">Telefoonnummer *</label>
+          <input type="tel" id="telefoon" name="telefoon" required placeholder="04xx xx xx xx">
+        </div>
+
+        <div class="form-group">
+          <label for="functie">Voor welke functie solliciteer je?</label>
+          <select id="functie" name="functie" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+            <option value="Ervaren Vloerder">Ervaren Vloerder / Tegelzetter</option>
+            <option value="Spontaan">Spontane Sollicitatie</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="motivatie">Korte Motivatie / Ervaring</label>
+          <textarea id="motivatie" name="motivatie" rows="4" placeholder="Vertel ons kort over je werkervaring..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="cv">Upload je CV (Optioneel, PDF)</label>
+          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" style="border: none; padding-left: 0;">
+        </div>
+
+        <button type="submit" class="btn btn-full">Verstuur Sollicitatie</button>
+      </form>
+    </div>
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Bedankt!</h2>
+        <p id="modal-message">Je sollicitatie is succesvol verzonden.</p>
+        <button class="btn" id="modal-ok-btn">OK</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer fade-in">
+  <div class="container footer-grid">
+
+    <div class="footer-col">
+      <h3>IDE Vloer- en Tegelwerken</h3>
+      <p>Uw betrouwbare partner voor hoogwaardige vloer- en tegelwerken, badkamerrenovaties en nog veel meer. Vakmanschap in elke tegel.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contactgegevens</h3>
+      <ul class="footer-contact footer-links">
+        <li><a href="https://maps.app.goo.gl/ysTtDvWBBny1vjFo7">📍 Baalsebaan 145, 3120 Tremelo</a></li>
+        <li>📞 +32 16 88 90 40</li>
+        <li>✉️ info@ide-vloerentegelwerken.be</li>
+        <li>🏢 BTW BE 0565.938.085</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Navigatie</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#uren">Openingsuren</a></li>
+        <li><a href="realisaties.html">Realisaties</a></li>
+        <li><a href="vacatures.html">Vacatures</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom footer-links">
+    <div class="container">
+      <p>&copy; 2026 IDE vloer- en tegelwerken. Alle rechten voorbehouden.</p>
+      <p>Door <a href="https://azimakbay.com">Azim Akbay</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
