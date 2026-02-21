@@ -1,23 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. Fade-in on Scroll ---
-  const faders = document.querySelectorAll('.fade-in');
-  const appearOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
-  };
-
-  // --- 2. Contact Formulier (contact.html) ---
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      alert(`Bedankt voor uw bericht, ${name}! We nemen zo spoedig mogelijk contact met u op.`);
-      contactForm.reset();
-    });
-  }
-
   // --- 3. Before & After Slider (index.html) ---
   const sliderContainer = document.querySelector('.ba-slider-container');
   if (sliderContainer) {
@@ -97,61 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 5. Custom Formulier Verzending & Pop-up (vacatures.html) ---
-  const jobForm = document.getElementById('jobForm');
-  const successModal = document.getElementById('successModal');
 
-  if (jobForm && successModal) {
-    const modalMessage = document.getElementById('modal-message');
-    const modalCloseBtn = document.querySelector('.modal-close');
-    const modalOkBtn = document.getElementById('modal-ok-btn');
-
-    jobForm.addEventListener('submit', async (e) => {
-      e.preventDefault(); // Nu wordt dit 100% uitgevoerd!
-
-      const submitBtn = jobForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-
-      submitBtn.textContent = "Bezig met verzenden...";
-      submitBtn.disabled = true;
-
-      try {
-        const formData = new FormData(jobForm);
-
-        // AJAX request naar PHP
-        const response = await fetch('sollicitatie.php', {
-          method: 'POST',
-          body: formData
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-          const naam = formData.get('naam');
-          if(modalMessage) modalMessage.textContent = `Bedankt, ${naam}! We hebben je sollicitatie in goede orde ontvangen. We nemen snel contact op.`;
-          jobForm.reset();
-        } else {
-          if(modalMessage) modalMessage.textContent = "Er ging iets mis bij het verzenden op de server. Probeer het later opnieuw.";
-        }
-      } catch (error) {
-        if(modalMessage) modalMessage.textContent = "Verbindingsfout. Controleer uw internetverbinding en probeer opnieuw.";
-      }
-
-      submitBtn.textContent = originalBtnText;
-      submitBtn.disabled = false;
-      successModal.classList.add('active');
-    });
-
-    const closeModal = () => successModal.classList.remove('active');
-
-    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
-    if (modalOkBtn) modalOkBtn.addEventListener('click', closeModal);
-    successModal.addEventListener('click', (e) => {
-      if (e.target === successModal) closeModal();
-    });
-  }
-
-});
 
 //------------------------hamburger menu voor mobiele users-------------------------------------
 
@@ -172,3 +100,87 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+
+// ----------------------------------- Formulier Verwerking
+  // --- Universele Formulier Verwerking (Contact & Vacatures) ---
+  const ajaxForms = document.querySelectorAll(".js-ajax-form");
+
+  ajaxForms.forEach(form => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const currentForm = event.target;
+      const submitBtn = currentForm.querySelector(".submit-button");
+      const buttonText = currentForm.querySelector(".button-text");
+      const statusMessage = currentForm.querySelector(".status-message");
+
+      // UI Feedback: Loading state
+      if (submitBtn) submitBtn.disabled = true;
+      if (buttonText) {
+        // Bewaar originele tekst om later te herstellen
+        currentForm.dataset.originalText = buttonText.innerText;
+        buttonText.innerText = "Verzenden...";
+      }
+      if (statusMessage) statusMessage.style.display = "none";
+
+      // Gebruik FormData om alle velden (inclusief bestanden!) op te halen
+      const data = new FormData(currentForm);
+
+      try {
+        const response = await fetch(currentForm.action, {
+          method: currentForm.method,
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          if (statusMessage) {
+            statusMessage.innerText = "Bedankt! We hebben je gegevens goed ontvangen.";
+            statusMessage.style.color = "#4ade80";
+            statusMessage.style.display = "block";
+          }
+          currentForm.reset();
+        } else {
+          throw new Error("Server error");
+        }
+      } catch (error) {
+        if (statusMessage) {
+          statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
+          statusMessage.style.color = "#f87171";
+          statusMessage.style.display = "block";
+        }
+      } finally {
+        // Herstel de knop
+        if (submitBtn) submitBtn.disabled = false;
+        if (buttonText) buttonText.innerText = currentForm.dataset.originalText;
+      }
+    });
+  });
+
+        if (response.ok) {
+          // Succes scenario
+          statusMessage.innerText = "Bedankt! Je bericht is succesvol verzonden.";
+          statusMessage.style.color = "#4ade80"; // Groen
+          statusMessage.style.display = "block";
+          contactForm.reset(); // Maak het formulier leeg
+        } else {
+          // Error van server
+          statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
+          statusMessage.style.color = "#f87171"; // Rood
+          statusMessage.style.display = "block";
+        }
+      } catch (error) {
+        // Netwerkfout
+        statusMessage.innerText = "Netwerkfout. Controleer je internetverbinding.";
+        statusMessage.style.color = "#f87171";
+        statusMessage.style.display = "block";
+      } finally {
+        // Reset de knop
+        submitBtn.disabled = false;
+        if (buttonText) buttonText.innerText = "Verstuur Aanvraag";
+      }
+    });
+  }
