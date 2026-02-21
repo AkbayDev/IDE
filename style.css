@@ -172,9 +172,9 @@ textarea {
 }
 
 @media print,
-(-webkit-min-device-pixel-ratio: 1.25),
-(min-resolution: 1.25dppx),
-(min-resolution: 120dpi) {
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi) {
   /* Style adjustments for high resolution devices */
 }
 
@@ -894,6 +894,17 @@ ul li {
    MOBILE RESPONSIVE FIXES
    ========================================================================== */
 
+/* --- Prevent ALL horizontal scrolling site-wide --- */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* --- Global: prevent any element from causing horizontal scroll --- */
+img, iframe, video, table {
+  max-width: 100%;
+}
+
 /* --- Logo fix: too large on mobile --- */
 #ide-logo {
   width: 140px !important;
@@ -905,24 +916,43 @@ ul li {
 @media (max-width: 768px) {
 
   /* === NAVIGATION === */
-  /* Stack logo + nav vertically, keep it compact */
+  header {
+    padding: 12px 0;
+    width: 100%;
+  }
+
   .nav-container {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 0 16px;
+    gap: 10px;
+    padding: 0 14px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  /* Wrap nav links so they don't overflow */
+  nav {
+    width: 100%;
+  }
+
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px 16px;
+    gap: 8px 12px;
+    width: 100%;
+    padding: 0;
   }
 
-  /* Smaller contact button on mobile */
+  .nav-links li {
+    flex-shrink: 1;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
   #contactbutton {
-    padding: 8px 20px;
+    padding: 8px 16px;
     font-size: 14px;
   }
 
@@ -1057,6 +1087,7 @@ ul li {
 
   .container {
     padding: 0 14px;
+    max-width: 100%;
   }
 
   .hero h1 {
