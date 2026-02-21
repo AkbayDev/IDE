@@ -891,252 +891,115 @@ ul li {
 
 
 /* ==========================================================================
-   MOBILE RESPONSIVE FIXES
+   HAMBURGER MENU
    ========================================================================== */
 
-/* --- Prevent ALL horizontal scrolling site-wide --- */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1000;
 }
 
-/* --- Global: prevent any element from causing horizontal scroll --- */
-img, iframe, video, table {
-  max-width: 100%;
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: #000000;
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-/* --- Logo fix: too large on mobile --- */
-#ide-logo {
-  width: 140px !important;
-  height: auto;
-  aspect-ratio: auto;
+/* Animate to X when open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
-/* --- Core mobile breakpoint (768px and below) --- */
 @media (max-width: 768px) {
-
-  /* === NAVIGATION === */
-  header {
-    padding: 12px 0;
-    width: 100%;
+  /* Show hamburger button */
+  .hamburger {
+    display: flex;
   }
 
+  /* Header row: logo left, hamburger right */
   .nav-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 0 14px;
-    width: 100%;
-    box-sizing: border-box;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 16px !important;
+    width: 100% !important;
+    position: relative;
   }
 
+  /* Hide nav by default, slide down when open */
   nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 999;
     width: 100%;
   }
 
+  nav.open {
+    display: block;
+  }
+
+  /* Stack links vertically in the dropdown */
   .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px 12px;
-    width: 100%;
-    padding: 0;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 8px 0 !important;
+    width: 100% !important;
   }
 
   .nav-links li {
-    flex-shrink: 1;
+    width: 100%;
   }
 
   .nav-links a {
-    font-size: 14px;
-    white-space: nowrap;
+    display: block;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    border-bottom: 1px solid #f0f0f0;
+    white-space: normal;
+  }
+
+  .nav-links li:last-child a {
+    border-bottom: none;
+    margin: 8px 12px;
+    width: auto;
+    text-align: center;
+    border-radius: 5px;
   }
 
   #contactbutton {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 12px 20px !important;
+    font-size: 16px !important;
   }
 
-  /* === HERO SECTION === */
-  .hero {
-    padding: 60px 0;
-  }
-
-  .hero h1 {
-    font-size: 26px;
-    margin-bottom: 14px;
-  }
-
-  .hero p {
-    font-size: 16px;
-    margin-bottom: 24px;
-    padding: 0 8px;
-  }
-
-  /* === OPENINGSUREN SECTION === */
-  /* Stack the two background images vertically on mobile */
-  #openingsuren::before {
+  /* Make header position relative so the dropdown can anchor to it */
+  header {
+    position: relative;
+    padding: 14px 0;
     width: 100%;
-    height: 50%;
-  }
-
-  #openingsuren::after {
-    width: 100%;
-    height: 50%;
-    top: 50%;
-    right: 0;
-    left: 0;
-  }
-
-  #uren {
-    font-size: 16px;
-  }
-
-  #uren ul {
-    text-align: center;
-  }
-
-  /* === CONTACT PAGE === */
-  .contact-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .contact-info h2 {
-    font-size: 24px;
-  }
-
-  /* Fix the hardcoded Google Maps iframe width */
-  .contact-info iframe {
-    width: 100% !important;
-    height: 280px;
-  }
-
-  /* === CONTACT SECTION GENERAL === */
-  .contact-section {
-    padding: 40px 0;
-  }
-
-  /* === PORTFOLIO / GALLERY === */
-  .portfolio {
-    padding: 50px 0;
-  }
-
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  /* Make gallery overlays always visible on mobile (no hover on touch) */
-  .gallery-overlay {
-    transform: translateY(0);
-    background: rgba(0, 0, 0, 0.55);
-  }
-
-  /* === BEFORE & AFTER SLIDER === */
-  .ba-slider-container {
-    margin: 20px auto 0 auto;
-    border-radius: 6px;
-  }
-
-  /* === BEFORE/AFTER SECTION === */
-  #before-after {
-    padding: 40px 0;
-  }
-
-  #before-after h2 {
-    font-size: 22px;
-  }
-
-  #before-after p {
-    font-size: 15px;
-    padding: 0 10px;
-  }
-
-  /* === VACATURES PAGE === */
-  .job-posting {
-    padding: 15px;
-  }
-
-  .job-posting h3 {
-    font-size: 18px;
-  }
-
-  /* === FOOTER === */
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .site-footer {
-    padding: 40px 0 0 0;
-  }
-
-  /* === MODAL === */
-  .modal-content {
-    padding: 28px 20px;
-  }
-
-  /* === OPENINGSUREN PADDING FIX === */
-  #urenpadding {
-    padding-bottom: 0;
-  }
-}
-
-/* --- Small phones (480px and below) --- */
-@media (max-width: 480px) {
-
-  .container {
-    padding: 0 14px;
-    max-width: 100%;
-  }
-
-  .hero h1 {
-    font-size: 22px;
-  }
-
-  .hero p {
-    font-size: 15px;
-  }
-
-  /* Two-column gallery on larger phones */
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Ensure buttons are easy to tap */
-  .btn {
-    padding: 12px 20px;
-    font-size: 15px;
-  }
-
-  .btn-full {
-    font-size: 16px;
-  }
-
-  /* Nav links slightly smaller */
-  .nav-links a {
-    font-size: 14px;
-  }
-
-  /* Form inputs comfortable to tap */
-  .form-group input,
-  .form-group textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
-    padding: 14px 12px;
-  }
-
-  .footer-col h3 {
-    font-size: 14px;
-  }
-
-  #ide-logo {
-    width: 120px !important;
-  }
-}
-
-/* --- Prevent iOS background-attachment:fixed bug (causes blank backgrounds) --- */
-@media (max-width: 768px) {
-  #toonzaal {
-    background-attachment: scroll;
   }
 }
