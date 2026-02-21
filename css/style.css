@@ -675,22 +675,11 @@ ul li {
   background-color: #f0f0f0; /* Maakt de onderste balk nèt een tintje donkerder */
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
 
 #ide-logo {
-  aspect-ratio: 1;
-  width: 50%;
+  width: 130px;
   height: auto;
+  aspect-ratio: auto;
 }
 /* Start state for elements we want to animate */
 .fade-in {
@@ -887,4 +876,184 @@ ul li {
 
 #urenpadding {
   padding-bottom: 400px;
+}
+
+
+/* ==========================================================================
+   MOBILE FIXES & HAMBURGER MENU
+   ========================================================================== */
+
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Prevent images/iframes from overflowing */
+img, iframe, video {
+  max-width: 100%;
+}
+
+/* Fix logo size globally */
+#ide-logo {
+  width: 130px !important;
+  height: auto;
+  aspect-ratio: auto;
+}
+
+/* --- Hamburger button (hidden on desktop) --- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1000;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: #000000;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ==========================================================================
+   MOBILE BREAKPOINT (768px and below)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Header: logo left, hamburger right — on one row */
+  header {
+    position: relative;
+    padding: 12px 0;
+    width: 100%;
+  }
+
+  .nav-container {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  /* Dropdown nav: hidden by default, shown when .open */
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 2px solid #eaeaea;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    z-index: 999;
+    width: 100%;
+  }
+
+  nav.open {
+    display: block;
+  }
+
+  /* Stack links vertically */
+  .nav-links {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 6px 0 !important;
+    width: 100% !important;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    border-bottom: 1px solid #f0f0f0;
+    white-space: normal;
+  }
+
+  /* Contact button in dropdown */
+  .nav-links li:last-child a {
+    border-bottom: none;
+    margin: 10px 16px;
+    width: auto;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  /* === Hero === */
+  .hero { padding: 50px 0; }
+  .hero h1 { font-size: 24px; margin-bottom: 12px; }
+  .hero p { font-size: 16px; padding: 0 10px; margin-bottom: 20px; }
+
+  /* === Openingsuren === */
+  #uren { font-size: 16px; text-align: center; }
+  #urenpadding { padding-bottom: 0; }
+
+  /* Fix openingsuren split-screen background on mobile */
+  #openingsuren::before { width: 100%; height: 50%; }
+  #openingsuren::after  { width: 100%; height: 50%; top: 50%; right: 0; }
+
+  /* === Contact === */
+  .contact-section { padding: 40px 0; }
+  .contact-container { grid-template-columns: 1fr; gap: 30px; }
+  .contact-info h2 { font-size: 24px; }
+  .contact-info iframe { width: 100% !important; height: 260px; }
+
+  /* === Gallery === */
+  .portfolio { padding: 50px 0; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gallery-overlay { transform: translateY(0); background: rgba(0,0,0,0.55); }
+
+  /* === Before/After === */
+  #before-after { padding: 40px 0; }
+  #before-after h2 { font-size: 22px; }
+
+  /* === Footer === */
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .site-footer { padding: 40px 0 0 0; }
+
+  /* === iOS parallax fix === */
+  #toonzaal { background-attachment: scroll; }
+
+  /* === Forms === */
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents iOS auto-zoom */
+  }
+}
+
+/* ==========================================================================
+   SMALL PHONES (480px and below)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .hero h1 { font-size: 20px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  #ide-logo { width: 110px !important; }
+  .btn-full { font-size: 16px; }
+  .job-posting { padding: 14px; }
+  .job-posting h3 { font-size: 18px; }
 }
