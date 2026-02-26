@@ -1,33 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 3. Before & After Slider (index.html) ---
+  // --- 1. Hamburger Menu ---
+  const btn = document.getElementById("hamburger");
+  const nav = document.querySelector("nav");
+  if (btn && nav) {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("open");
+      nav.classList.toggle("open");
+    });
+    const links = nav.querySelectorAll("a");
+    links.forEach(a => {
+      a.addEventListener("click", () => {
+        btn.classList.remove("open");
+        nav.classList.remove("open");
+      });
+    });
+  }
+
+  // --- 2. Before & After Slider (index.html) ---
   const sliderContainer = document.querySelector('.ba-slider-container');
   if (sliderContainer) {
     const imageAfter = document.querySelector('.image-after');
     const sliderHandle = document.querySelector('.slider-handle');
     let isDragging = false;
 
-    sliderContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      moveSlider(e.clientX);
-    });
-    window.addEventListener('mouseup', () => isDragging = false);
-    window.addEventListener('mousemove', (e) => moveSlider(e.clientX));
-
-    sliderContainer.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      moveSlider(e.touches[0].clientX);
-    }, { passive: true });
-
-    window.addEventListener('touchend', () => isDragging = false);
-    window.addEventListener('touchmove', (e) => {
-      if (isDragging) {
-        e.preventDefault();
-        moveSlider(e.touches[0].clientX);
-      }
-    }, { passive: false });
-
-    function moveSlider(clientX) {
+    const moveSlider = (clientX) => {
       if (!isDragging) return;
       const rect = sliderContainer.getBoundingClientRect();
       let x = clientX - rect.left;
@@ -36,15 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const percentage = (x / rect.width) * 100;
       sliderHandle.style.left = `${percentage}%`;
       imageAfter.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-    }
+    };
+
+    sliderContainer.addEventListener('mousedown', (e) => { isDragging = true; moveSlider(e.clientX); });
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('mousemove', (e) => moveSlider(e.clientX));
+    sliderContainer.addEventListener('touchstart', (e) => { isDragging = true; moveSlider(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchend', () => isDragging = false);
+    window.addEventListener('touchmove', (e) => { if (isDragging) moveSlider(e.touches[0].clientX); }, { passive: false });
   }
 
-  // --- 4. Lightbox (Veilig gemaakt tegen crashes) ---
+  // --- 3. Lightbox ---
   const lightbox = document.getElementById('lightbox');
   const galleryItems = document.querySelectorAll('.gallery-item');
-
-  // We doen ALLES van de lightbox IN deze if-statement.
-  // Zo crasht het script niet op pagina's waar geen foto's staan.
   if (lightbox && galleryItems.length > 0) {
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -67,43 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-        closeLightbox();
-      }
-    });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox(); });
   }
 
-
-
-//------------------------hamburger menu voor mobiele users-------------------------------------
-
-document.addEventListener("DOMContentLoaded", function() {
-  var btn = document.getElementById("hamburger");
-  var nav = document.querySelector("nav");
-  if (btn && nav) {
-    btn.addEventListener("click", function() {
-      btn.classList.toggle("open");
-      nav.classList.toggle("open");
-    });
-    var links = nav.querySelectorAll("a");
-    links.forEach(function(a) {
-      a.addEventListener("click", function() {
-        btn.classList.remove("open");
-        nav.classList.remove("open");
-      });
-    });
-  }
-});
-
-
-// ----------------------------------- Formulier Verwerking
-  // --- Universele Formulier Verwerking (Contact & Vacatures) ---
+  // --- 4. Universele Formulier Verwerking (AJAX naar PHP) ---
   const ajaxForms = document.querySelectorAll(".js-ajax-form");
 
   ajaxForms.forEach(form => {
@@ -111,76 +80,55 @@ document.addEventListener("DOMContentLoaded", function() {
       event.preventDefault();
 
       const currentForm = event.target;
-      const submitBtn = currentForm.querySelector(".submit-button");
-      const buttonText = currentForm.querySelector(".button-text");
-      const statusMessage = currentForm.querySelector(".status-message");
+      // We zoeken knoppen/status berichten binnen het huidige formulier
+      const submitBtn = currentForm.querySelector('button[type="submit"]');
+      const statusMessage = currentForm.querySelector(".status-message") || createStatusElement(currentForm);
 
-      // UI Feedback: Loading state
-      if (submitBtn) submitBtn.disabled = true;
-      if (buttonText) {
-        // Bewaar originele tekst om later te herstellen
-        currentForm.dataset.originalText = buttonText.innerText;
-        buttonText.innerText = "Verzenden...";
+      // UI Feedback
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        currentForm.dataset.oldText = submitBtn.innerText;
+        submitBtn.innerText = "Verzenden...";
       }
-      if (statusMessage) statusMessage.style.display = "none";
 
-      // Gebruik FormData om alle velden (inclusief bestanden!) op te halen
+      statusMessage.style.display = "none";
+
       const data = new FormData(currentForm);
 
       try {
         const response = await fetch(currentForm.action, {
-          method: currentForm.method,
-          body: data,
-          headers: {
-            'Accept': 'application/json'
-          }
+          method: "POST",
+          body: data
         });
 
         if (response.ok) {
-          if (statusMessage) {
-            statusMessage.innerText = "Bedankt! We hebben je gegevens goed ontvangen.";
-            statusMessage.style.color = "#4ade80";
-            statusMessage.style.display = "block";
-          }
+          statusMessage.innerText = "Bedankt! Je bericht is succesvol verzonden.";
+          statusMessage.style.color = "#4ade80"; // Groen
+          statusMessage.style.display = "block";
           currentForm.reset();
         } else {
-          throw new Error("Server error");
+          throw new Error("Fout bij verzenden");
         }
       } catch (error) {
-        if (statusMessage) {
-          statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
-          statusMessage.style.color = "#f87171";
-          statusMessage.style.display = "block";
-        }
+        statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
+        statusMessage.style.color = "#f87171"; // Rood
+        statusMessage.style.display = "block";
       } finally {
-        // Herstel de knop
-        if (submitBtn) submitBtn.disabled = false;
-        if (buttonText) buttonText.innerText = currentForm.dataset.originalText;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = currentForm.dataset.oldText;
+        }
       }
     });
   });
 
-        if (response.ok) {
-          // Succes scenario
-          statusMessage.innerText = "Bedankt! Je bericht is succesvol verzonden.";
-          statusMessage.style.color = "#4ade80"; // Groen
-          statusMessage.style.display = "block";
-          contactForm.reset(); // Maak het formulier leeg
-        } else {
-          // Error van server
-          statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
-          statusMessage.style.color = "#f87171"; // Rood
-          statusMessage.style.display = "block";
-        }
-      } catch (error) {
-        // Netwerkfout
-        statusMessage.innerText = "Netwerkfout. Controleer je internetverbinding.";
-        statusMessage.style.color = "#f87171";
-        statusMessage.style.display = "block";
-      } finally {
-        // Reset de knop
-        submitBtn.disabled = false;
-        if (buttonText) buttonText.innerText = "Verstuur Aanvraag";
-      }
-    });
+  // Hulpfunctie om een status-element te maken als je die vergeet in de HTML
+  function createStatusElement(parent) {
+    const p = document.createElement("p");
+    p.className = "status-message";
+    p.style.marginTop = "15px";
+    p.style.fontWeight = "bold";
+    parent.appendChild(p);
+    return p;
   }
+});
