@@ -1,62 +1,150 @@
+/**
+ * IDE Vloer- en Tegelwerken — Main JavaScript
+ * Handles: header scroll, hamburger menu, scroll animations,
+ * before/after slider, lightbox, and form AJAX submission.
+ */
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. Hamburger Menu ---
-  const btn = document.getElementById("hamburger");
-  const nav = document.querySelector("nav");
-  if (btn && nav) {
-    btn.addEventListener("click", () => {
-      btn.classList.toggle("open");
-      nav.classList.toggle("open");
+  // =====================================================================
+  // 1. Sticky Header — add .scrolled class on scroll
+  // =====================================================================
+  const header = document.getElementById('site-header');
+  if (header) {
+    const onScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
+  }
+
+  // =====================================================================
+  // 2. Hamburger Menu (mobile)
+  // =====================================================================
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('main-nav');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      nav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
     });
-    const links = nav.querySelectorAll("a");
-    links.forEach(a => {
-      a.addEventListener("click", () => {
-        btn.classList.remove("open");
-        nav.classList.remove("open");
+
+    // Close menu when a link is clicked
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        nav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // --- 2. Before & After Slider (index.html) ---
+  // =====================================================================
+  // 3. Smooth Scroll for anchor links
+  // =====================================================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // =====================================================================
+  // 4. Intersection Observer — Scroll Reveal Animations
+  // =====================================================================
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // Fallback: show everything if IntersectionObserver not supported
+    revealElements.forEach(el => el.classList.add('visible'));
+  }
+
+  // =====================================================================
+  // 5. Before & After Slider
+  // =====================================================================
   const sliderContainer = document.querySelector('.ba-slider-container');
+
   if (sliderContainer) {
-    const imageAfter = document.querySelector('.image-after');
-    const sliderHandle = document.querySelector('.slider-handle');
+    const imageAfter = sliderContainer.querySelector('.image-after');
+    const sliderHandle = sliderContainer.querySelector('.slider-handle');
     let isDragging = false;
 
-    const moveSlider = (clientX) => {
+    function moveSlider(clientX) {
       if (!isDragging) return;
       const rect = sliderContainer.getBoundingClientRect();
-      let x = clientX - rect.left;
-      if (x < 0) x = 0;
-      if (x > rect.width) x = rect.width;
+      let x = Math.max(0, Math.min(clientX - rect.left, rect.width));
       const percentage = (x / rect.width) * 100;
       sliderHandle.style.left = `${percentage}%`;
       imageAfter.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-    };
+    }
 
-    sliderContainer.addEventListener('mousedown', (e) => { isDragging = true; moveSlider(e.clientX); });
+    // Mouse events
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      moveSlider(e.clientX);
+      e.preventDefault();
+    });
     window.addEventListener('mouseup', () => isDragging = false);
     window.addEventListener('mousemove', (e) => moveSlider(e.clientX));
-    sliderContainer.addEventListener('touchstart', (e) => { isDragging = true; moveSlider(e.touches[0].clientX); }, { passive: true });
+
+    // Touch events
+    sliderContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      moveSlider(e.touches[0].clientX);
+    }, { passive: true });
     window.addEventListener('touchend', () => isDragging = false);
-    window.addEventListener('touchmove', (e) => { if (isDragging) moveSlider(e.touches[0].clientX); }, { passive: false });
+    window.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        moveSlider(e.touches[0].clientX);
+      }
+    }, { passive: false });
   }
 
-  // --- 3. Lightbox ---
+  // =====================================================================
+  // 6. Lightbox (for gallery items on realisaties page)
+  // =====================================================================
   const lightbox = document.getElementById('lightbox');
   const galleryItems = document.querySelectorAll('.gallery-item');
+
   if (lightbox && galleryItems.length > 0) {
     const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const closeBtn = document.querySelector('.lightbox-close');
+    const lightboxClose = document.getElementById('lightbox-close');
 
     galleryItems.forEach(item => {
       item.addEventListener('click', () => {
         const img = item.querySelector('img');
-        const overlay = item.querySelector('.gallery-overlay');
-        if(img) lightboxImg.src = img.src;
-        if(lightboxCaption) lightboxCaption.textContent = overlay ? overlay.textContent : '';
+        if (img && lightboxImg) {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt || 'Uitvergrote foto';
+        }
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
@@ -64,71 +152,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeLightbox = () => {
       lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     };
 
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox(); });
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
   }
 
-  // --- 4. Universele Formulier Verwerking (AJAX naar PHP) ---
-  const ajaxForms = document.querySelectorAll(".js-ajax-form");
+  // =====================================================================
+  // 7. Form AJAX Submission (universal for contact + vacatures)
+  // =====================================================================
+  const ajaxForms = document.querySelectorAll('.js-ajax-form');
 
   ajaxForms.forEach(form => {
-    form.addEventListener("submit", async (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const currentForm = event.target;
-      // We zoeken knoppen/status berichten binnen het huidige formulier
-      const submitBtn = currentForm.querySelector('button[type="submit"]');
-      const statusMessage = currentForm.querySelector(".status-message") || createStatusElement(currentForm);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const statusEl = form.querySelector('.status-message');
+      const originalText = submitBtn ? submitBtn.textContent : '';
 
-      // UI Feedback
+      // Loading state
       if (submitBtn) {
         submitBtn.disabled = true;
-        currentForm.dataset.oldText = submitBtn.innerText;
-        submitBtn.innerText = "Verzenden...";
+        submitBtn.textContent = 'Verzenden...';
+      }
+      if (statusEl) {
+        statusEl.className = 'status-message';
+        statusEl.textContent = '';
       }
 
-      statusMessage.style.display = "none";
-
-      const data = new FormData(currentForm);
+      const data = new FormData(form);
 
       try {
-        const response = await fetch(currentForm.action, {
-          method: "POST",
-          body: data
+        const response = await fetch(form.action, {
+          method: form.method || 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
         });
 
         if (response.ok) {
-          statusMessage.innerText = "Bedankt! Je bericht is succesvol verzonden.";
-          statusMessage.style.color = "#4ade80"; // Groen
-          statusMessage.style.display = "block";
-          currentForm.reset();
+          if (statusEl) {
+            statusEl.textContent = 'Bedankt! Uw bericht is succesvol verzonden. Wij nemen zo snel mogelijk contact op.';
+            statusEl.className = 'status-message success';
+          }
+          form.reset();
         } else {
-          throw new Error("Fout bij verzenden");
+          throw new Error('Server error');
         }
       } catch (error) {
-        statusMessage.innerText = "Oeps! Er is iets misgegaan. Probeer het later opnieuw.";
-        statusMessage.style.color = "#f87171"; // Rood
-        statusMessage.style.display = "block";
+        if (statusEl) {
+          statusEl.textContent = 'Oeps! Er is iets misgegaan. Probeer het later opnieuw of neem telefonisch contact op.';
+          statusEl.className = 'status-message error';
+        }
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerText = currentForm.dataset.oldText;
+          submitBtn.textContent = originalText;
         }
       }
     });
   });
 
-  // Hulpfunctie om een status-element te maken als je die vergeet in de HTML
-  function createStatusElement(parent) {
-    const p = document.createElement("p");
-    p.className = "status-message";
-    p.style.marginTop = "15px";
-    p.style.fontWeight = "bold";
-    parent.appendChild(p);
-    return p;
-  }
 });

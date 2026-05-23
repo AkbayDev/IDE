@@ -3,115 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IDE vloer- en tegelwerken | Contact</title>
+  <title>IDE Vloer- en Tegelwerken | Contact & Offerte Aanvragen</title>
+  <meta name="description" content="Neem contact op met IDE vloer- en tegelwerken voor een vrijblijvende offerte. Bezoek ons op Baalsebaan 145 in Tremelo of stuur een bericht.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.ide-vloerentegelwerken.be/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="IDE Vloer- en Tegelwerken | Contact & Offerte">
+  <meta property="og:description" content="Neem contact op voor een vrijblijvende offerte. Bezoek ons in Tremelo of stuur een bericht.">
+  <meta property="og:url" content="https://www.ide-vloerentegelwerken.be/contact.html">
+  <meta property="og:locale" content="nl_BE">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
   <div class="container nav-container">
-    <a href="index.html" class="logo">
-      <!--
-      <div class="logo-dots">
-        <span class="dot yellow"></span>
-        <span class="dot orange"></span>
-        <span class="dot red"></span>
-      </div>
-      <span class="logo-main">IDE</span> <span class="logo-sub">vloer- en tegelwerken</span>
-      -->
-      <img id="ide-logo" src="img/logo-Pixels-White-medium-IDE.jpg" alt="Logo van IDE vloer- en tegelwerken">
+    <a href="index.html" class="logo-link" aria-label="IDE Vloer- en Tegelwerken — Startpagina">
+      <img id="ide-logo" src="img/logo-Pixels-White-medium-IDE.jpg" alt="Logo van IDE vloer- en tegelwerken" width="120" height="40">
     </a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false">
+      <span></span><span></span><span></span>
     </button>
-    <nav>
+    <nav id="main-nav" aria-label="Hoofdnavigatie">
       <ul class="nav-links">
-        <li><a href="realisaties.html" >Realisaties</a></li>
-        <li><a href="index.html#uren">Openingsuren</a></li>
-        <li><a href="vacatures.html" >Vacatures</a></li>
-        <li><a href="contact.html" class="btn" id="contactbutton">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="realisaties.html">Realisaties</a></li>
+        <li><a href="index.html#openingsuren">Openingsuren</a></li>
+        <li><a href="vacatures.html">Vacatures</a></li>
+        <li><a href="contact.html" class="nav-cta active" id="nav-contact-btn">Contact</a></li>
       </ul>
     </nav>
   </div>
 </header>
+<div class="header-spacer"></div>
 
-<section class="contact-section">
-  <div class="container contact-container">
-    <div class="contact-info">
-      <h2>Neem Contact Op</h2>
-      <p>Heeft u een project in gedachten of wilt u een vrijblijvende offerte aanvragen? Vul het formulier in en wij nemen zo snel mogelijk contact met u op.</p>
-      <br>
-      <p><strong>Email:</strong> info@ide-tegelwerken.be</p>
-      <p><strong>Telefoon:</strong> +32 16 88 90 40</p>
-      <p><strong>Locatie:</strong> Baalsebaan 145,3120 Tremelo</p>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2511.1663893047016!2d4.723399976542336!3d50.994597348035576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c15904ac3a475b%3A0xea43b4c2bdc1b38c!2sIDE%20vloer-%20en%20tegelwerken!5e0!3m2!1snl!2sbe!4v1771613573938!5m2!1snl!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="section-label">Contact</span>
+    <h1>Neem Contact Op</h1>
+    <p>Heeft u een project in gedachten of wilt u een vrijblijvende offerte? Wij staan klaar om u te helpen.</p>
+  </div>
+</section>
 
-    <div class="contact-form-wrapper">
-      <form class="js-ajax-form" id="contactForm" method="post" action="https://formspree.io/f/mojnklva">
-        <div class="form-group">
-          <label for="name">Naam</label>
-          <input type="text" id="name" name="name" required placeholder="Uw volledige naam">
-        </div>
-        <div class="form-group">
-          <label for="email">E-mailadres</label>
-          <input type="email" id="email" name="email" required placeholder="uw.email@voorbeeld.com">
-        </div>
-        <div class="form-group">
-          <label for="phone">Telefoonnummer (Optioneel)</label>
-          <input type="tel" id="phone" name="phone" placeholder="04xx xx xx xx">
-        </div>
-        <div class="form-group">
-          <label for="message">Bericht / Projectbeschrijving</label>
-          <textarea id="message" name="message" rows="5" required placeholder="Vertel ons over uw project..."></textarea>
+<!-- CONTACT SECTION -->
+<section id="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Left: Contact Info -->
+      <div class="contact-info reveal-left">
+        <h2>Laat Van U Horen</h2>
+        <p>Heeft u een project in gedachten of wilt u een vrijblijvende offerte aanvragen? Vul het formulier in en wij nemen zo snel mogelijk contact met u op. U kunt ons ook telefonisch bereiken of langskomen in onze toonzaal.</p>
+
+        <div class="contact-cards">
+          <a href="tel:+3216889040" class="contact-card" id="contact-phone-card">
+            <div class="card-icon">📞</div>
+            <div class="contact-card-text">
+              <strong>Telefoon</strong>
+              <span>+32 16 88 90 40</span>
+            </div>
+          </a>
+          <a href="mailto:info@ide-vloerentegelwerken.be" class="contact-card" id="contact-email-card">
+            <div class="card-icon">✉️</div>
+            <div class="contact-card-text">
+              <strong>E-mail</strong>
+              <span>info@ide-vloerentegelwerken.be</span>
+            </div>
+          </a>
+          <a href="https://maps.app.goo.gl/ysTtDvWBBny1vjFo7" target="_blank" rel="noopener" class="contact-card" id="contact-address-card">
+            <div class="card-icon">📍</div>
+            <div class="contact-card-text">
+              <strong>Adres</strong>
+              <span>Baalsebaan 145, 3120 Tremelo</span>
+            </div>
+          </a>
         </div>
 
-        <button type="submit" class="btn btn-full" class="submit-button">
-          <span class="button-text">Verstuur Aanvraag</span>
-        </button>
+        <iframe
+          class="contact-map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2511.1663893047016!2d4.723399976542336!3d50.994597348035576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c15904ac3a475b%3A0xea43b4c2bdc1b38c!2sIDE%20vloer-%20en%20tegelwerken!5e0!3m2!1snl!2sbe!4v1771613573938!5m2!1snl!2sbe"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Locatie IDE vloer- en tegelwerken op Google Maps"
+        ></iframe>
+      </div>
 
-        <p class="status-message" style="display:none; margin-top: 15px; font-weight: bold;"></p>
-      </form>
+      <!-- Right: Contact Form -->
+      <div class="contact-form reveal-right">
+        <h3>Stuur Ons Een Bericht</h3>
+        <form class="js-ajax-form" id="contactForm" method="post" action="https://formspree.io/f/mojnklva">
+          <div class="form-group">
+            <label for="contact-name">Naam *</label>
+            <input type="text" id="contact-name" name="name" required placeholder="Uw volledige naam" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">E-mailadres *</label>
+            <input type="email" id="contact-email" name="email" required placeholder="uw.email@voorbeeld.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Telefoonnummer (optioneel)</label>
+            <input type="tel" id="contact-phone" name="phone" placeholder="04xx xx xx xx" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Bericht / Projectbeschrijving *</label>
+            <textarea id="contact-message" name="message" rows="5" required placeholder="Vertel ons over uw project..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="contact-submit-btn">
+            <span class="btn-icon">✉</span> Verstuur Aanvraag
+          </button>
+          <p class="status-message" id="contact-status"></p>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer class="site-footer">
-  <div class="container footer-grid">
-
-    <div class="footer-col">
-      <h3>IDE Vloer- en Tegelwerken</h3>
-      <p>Uw betrouwbare partner voor hoogwaardige vloer- en tegelwerken, badkamerrenovaties en nog veel meer. Vakmanschap in elke tegel.</p>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <img class="footer-logo" src="img/logo-Pixels-White-medium-IDE.jpg" alt="IDE logo" width="100" height="33" loading="lazy">
+        <p>Uw betrouwbare partner voor hoogwaardige vloer- en tegelwerken, badkamerrenovaties en nog veel meer. Vakmanschap in elke tegel.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigatie</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="realisaties.html">Realisaties</a></li>
+          <li><a href="index.html#openingsuren">Openingsuren</a></li>
+          <li><a href="vacatures.html">Vacatures</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul class="footer-contact">
+          <li>📍 <a href="https://maps.app.goo.gl/ysTtDvWBBny1vjFo7" target="_blank" rel="noopener">Baalsebaan 145, 3120 Tremelo</a></li>
+          <li>📞 <a href="tel:+3216889040">+32 16 88 90 40</a></li>
+          <li>✉️ <a href="mailto:info@ide-vloerentegelwerken.be">info@ide-vloerentegelwerken.be</a></li>
+          <li>🏢 BTW BE 0565.938.085</li>
+        </ul>
+      </div>
     </div>
-
-    <div class="footer-col">
-      <h3>Contactgegevens</h3>
-      <ul class="footer-contact footer-links">
-        <li><a href="https://maps.app.goo.gl/ysTtDvWBBny1vjFo7">📍 Baalsebaan 145, 3120 Tremelo</a></li>
-        <li>📞 +32 16 88 90 40</li>
-        <li>✉️ info@ide-vloerentegelwerken.be</li>
-        <li>🏢 BTW BE 0565.938.085</li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h3>Navigatie</h3>
-      <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#uren">Openingsuren</a></li>
-        <li><a href="realisaties.html">Realisaties</a></li>
-        <li><a href="vacatures.html">Vacatures</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-
   </div>
-
-  <div class="footer-bottom footer-links">
-    <div class="container">
+  <div class="container">
+    <div class="footer-bottom">
       <p>&copy; 2026 IDE vloer- en tegelwerken. Alle rechten voorbehouden.</p>
-      <p>Door <a href="https://azimakbay.com">Azim Akbay</a></p>
+      <p>Door <a href="https://azimakbay.com" target="_blank" rel="noopener">Azim Akbay</a></p>
     </div>
   </div>
 </footer>
